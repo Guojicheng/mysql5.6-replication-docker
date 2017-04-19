@@ -29,6 +29,46 @@ MasterNode:
   ports:
    - 3307:3306/tcp
   volumes:
-  - /home/rancher/mysql:/var/lib/mysql
+  - /var/lib/mysql:/var/lib/mysql
+stdin_open: true
+```
+
+```
+Slave1Node:
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+    MySQL_Role: Slave1
+    REPLICATION_PASSWORD: '88888888'
+    REPLICATION_USER: repluser
+    MasterIP: 172.20.10.1
+    Slave1IP: 172.20.10.2
+    Slave2IP: 172.20.20.6
+    MySQLPort: 3307
+  tty: true
+  image: mysql5.6-replication-docker:1.0
+  ports:
+   - 3307:3306/tcp
+  volumes:
+  - /var/lib/mysql:/var/lib/mysql
+stdin_open: true
+```
+
+```
+Slave2Node:
+  environment:
+    MYSQL_ROOT_PASSWORD: password
+    MySQL_Role: Slave2
+    REPLICATION_PASSWORD: '88888888'
+    REPLICATION_USER: repluser
+    MasterIP: 172.20.10.1
+    Slave1IP: 172.20.10.2
+    Slave2IP: 172.20.20.6
+    MySQLPort: 3307
+  tty: true
+  image: mysql5.6-replication-docker:1.0
+  ports:
+   - 3307:3306/tcp
+  volumes:
+  - /var/lib/mysql:/var/lib/mysql
 stdin_open: true
 ```
